@@ -11,8 +11,8 @@ class MenuTrain < MenuBase
         list.push(name: 'нет ни одного поезда')
         list.push(name: MENU_DELIMITER)
       else
-        @storage.trains.each_with_index do |train, index|
-          list.push(key: index + 1, name: 'поезд ' + train.name,
+        @storage.trains.each.with_index(1) do |train, index|
+          list.push(key: index, name: 'поезд ' + train.name,
                     proc: :train_control, data: train)
         end
         list.push(name: MENU_DELIMITER)
@@ -48,11 +48,11 @@ class MenuTrain < MenuBase
 
       break if train_number.upcase == MENU_EXIT_KEY
 
-      tr = @storage.trains.find do |train|
+      train_found = @storage.trains.find do |train|
         train.name.downcase == train_number.downcase
       end
 
-      if tr.nil?
+      if !train_found
         @storage.trains << call_menu_item[:data].new(train_number)
         puts "Поезд \"#{@storage.trains[-1].name}\" создан."
         sleep_short
@@ -95,8 +95,8 @@ class MenuTrain < MenuBase
         list.push(name: 'нет ни одного вагона у поезда')
         list.push(name: MENU_DELIMITER)
       else
-        train.railcars.each_with_index do |railcar, index|
-          list.push(key: index + 1,
+        train.railcars.each.with_index(1) do |railcar, index|
+          list.push(key: index,
                     name: railcar.name,
                     proc: :train_railcar_exclude,
                     data_train: train,
@@ -133,8 +133,8 @@ class MenuTrain < MenuBase
     else
       menu_show do
         list = []
-        available_railcars.each_with_index do |railcar, index|
-          list.push(key: index + 1,
+        available_railcars.each.with_index(1) do |railcar, index|
+          list.push(key: index,
                     name: railcar.name,
                     proc: :train_railcar_include_end,
                     data_train: train,
@@ -192,8 +192,8 @@ class MenuTrain < MenuBase
     else
       menu_show do
         list = []
-        @storage.routes.each_with_index do |route, index|
-          list.push(key: index + 1, name: route.name,
+        @storage.routes.each.with_index(1) do |route, index|
+          list.push(key: index, name: route.name,
                     proc: :train_route_change_end,
                     data_train: train, data_route: route)
         end

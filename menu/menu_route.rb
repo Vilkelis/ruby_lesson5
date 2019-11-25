@@ -9,8 +9,8 @@ class MenuRoute < MenuBase
         list.push(name: 'нет ни одного маршрута')
         list.push(name: MENU_DELIMITER)
       else
-        @storage.routes.each_with_index do |route, index|
-          list.push(key: index + 1, name: route.name, proc: :route, data: route)
+        @storage.routes.each.with_index(1) do |route, index|
+          list.push(key: index, name: route.name, proc: :route, data: route)
         end
         list.push(name: MENU_DELIMITER)
         list.push(name: 'Для просмотра и управления '\
@@ -28,8 +28,8 @@ class MenuRoute < MenuBase
     route = call_menu_item[:data]
     menu_show do
       list = []
-      route.stations.each_with_index do |station, index|
-        list.push(key: index + 1, name: station.name,
+      route.stations.each.with_index(1) do |station, index|
+        list.push(key: index, name: station.name,
                   proc: :route_exclude_station,
                   data_station: station, data_route: route)
       end
@@ -70,8 +70,8 @@ class MenuRoute < MenuBase
       menu_show do
         list = []
 
-        available_stations.each_with_index do |station, index|
-          list.push(key: index + 1, name: station.name,
+        available_stations.each.with_index(1) do |station, index|
+          list.push(key: index, name: station.name,
                     proc: :route_include_station_end,
                     data_station: station,
                     data_route: route)
@@ -99,8 +99,8 @@ class MenuRoute < MenuBase
     else
       menu_show do
         list = []
-        @storage.stations.each_with_index do |station, index|
-          list.push(key: index + 1, name: station.name,
+        @storage.stations.each.with_index(1) do |station, index|
+          list.push(key: index, name: station.name,
                     proc: :route_new_last_station, data: station)
         end
         list.push(name: MENU_DELIMITER)

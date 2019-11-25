@@ -10,8 +10,8 @@ class MenuStation < MenuBase
         list.push(name: 'список станций пуст')
         list.push(name: MENU_DELIMITER)
       else
-        @storage.stations.each_with_index do |station, index|
-          list.push(key: index + 1, name: station.name,
+        @storage.stations.each.with_index(1) do |station, index|
+          list.push(key: index, name: station.name,
                     proc: :station_trains_list, data: station)
         end
         list.push(name: MENU_DELIMITER)
@@ -36,10 +36,10 @@ class MenuStation < MenuBase
 
       break if station_name.upcase == MENU_EXIT_KEY
 
-      st = @storage.stations.find do |station|
+      station_found = @storage.stations.find do |station|
         station.name.downcase == station_name.downcase
       end
-      if st.nil?
+      if !station_found
         @storage.stations << Station.new(station_name)
         puts "Станция \"#{station_name}\" создана."
         sleep_short
@@ -57,8 +57,8 @@ class MenuStation < MenuBase
       station = call_menu_item[:data]
       list = []
       if station.trains.count > 0
-        station.trains.each_with_index do |train, index|
-          list.push(name: "#{index + 1}. #{train.name}")
+        station.trains.each.with_index(1) do |train, index|
+          list.push(name: "#{index}. #{train.name}")
         end
       else
         list.push(name: 'сейчас на станции нет ни одного поезда')

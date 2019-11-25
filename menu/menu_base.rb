@@ -34,11 +34,11 @@ class MenuBase
       puts MENU_DELIMITER
 
       menu_settings[:list].each do |data|
-        if data[:key].nil?
-          puts data[:name]
-        else
+        if data[:key]
           puts "#{data[:key]}#{data[:key].to_s =~ /^[0-9]*$/ ? '.' : ' - '}"\
                " #{data[:name]}"
+        else
+          puts data[:name]
         end
       end
 

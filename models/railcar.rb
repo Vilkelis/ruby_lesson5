@@ -8,7 +8,6 @@ class Railcar
   def initialize
     @@railcar_count += 1
     @reg_number = @@railcar_count
-    @train = nil
   end
 
   def name

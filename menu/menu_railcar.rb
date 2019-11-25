@@ -10,8 +10,8 @@ class MenuRailcar < MenuBase
         list.push(name: 'нет ни одного вагона')
         list.push(name: MENU_DELIMITER)
       else
-        @storage.railcars.each_with_index do |railcar, index|
-          list.push(key: index + 1,
+        @storage.railcars.each.with_index(1) do |railcar, index|
+          list.push(key: index,
                     name: railcar.name +
                           if railcar.train.nil?
                             ''
