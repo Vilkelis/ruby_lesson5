@@ -1,8 +1,12 @@
+require_relative '../helpers/instance_counter.rb'
 # Train route class
 class Route
+  include InstanceCounter
+
   attr_reader :stations
 
   def initialize(first_station, last_station)
+    register_instance
     @stations = [first_station, last_station]
   end
 

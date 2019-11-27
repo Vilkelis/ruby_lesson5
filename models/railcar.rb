@@ -1,5 +1,8 @@
+require_relative '../helpers/manufactor_helper.rb'
 # Railcar base class
 class Railcar
+  include ManufactorHelper
+
   attr_reader :reg_number, :train
   attr_writer :train
 

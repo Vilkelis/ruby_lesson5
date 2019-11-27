@@ -1,15 +1,30 @@
+require_relative '../helpers/manufactor_helper.rb'
+require_relative '../helpers/instance_counter.rb'
 # Train class
 class Train
+  include ManufactorHelper
+  include InstanceCounter
+
   attr_reader :number, :railcars, :route, :speed
 
-  def name
-    "#{type} № #{number}"
-  end
+  @@trains = []
 
   def initialize(number)
+    register_instance
     @number = number
     @railcars = []
     @speed = 0
+    @@trains << self
+  end
+
+  def self.find(train_number)
+    @@trains.find do |train|
+      train.number.to_s.downcase == train_number.to_s.downcase
+    end
+  end
+
+  def name
+    "#{type} № #{number}"
   end
 
   def increase_speed
