@@ -16,22 +16,20 @@ module InstanceCounter
 
   # Class methods
   module ClassMethods
+    attr_reader :instances
+
     def self.extended(base)
-      base.instance_variable_set(:@instance_count, 0)
+      base.instance_variable_set(:@instances, 0)
     end
 
     def inherited(base)
-      base.instance_variable_set(:@instance_count, 0)
-    end
-
-    def instances
-      @instance_count
+      base.instance_variable_set(:@instances, 0)
     end
 
     protected
 
     def register_instance
-      @instance_count += 1
+      @instances += 1
     end
   end
 end

@@ -7,20 +7,18 @@ class Train
 
   attr_reader :number, :railcars, :route, :speed
 
-  @@trains = []
+  @@trains = {}
 
   def initialize(number)
     register_instance
     @number = number
     @railcars = []
     @speed = 0
-    @@trains << self
+    @@trains[@number.to_s.downcase] = self
   end
 
   def self.find(train_number)
-    @@trains.find do |train|
-      train.number.to_s.downcase == train_number.to_s.downcase
-    end
+    @@trains[train_number.to_s.downcase]
   end
 
   def name
