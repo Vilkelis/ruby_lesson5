@@ -1,19 +1,24 @@
 require_relative '../helpers/manufactor_helper.rb'
 require_relative '../helpers/instance_counter.rb'
+require_relative '../helpers/validate_helper.rb'
 # Train class
 class Train
   include ManufactorHelper
   include InstanceCounter
+  include ValidateHelper
+
+  NUMBER_FORMAT = /^[0-9a-zа-я]{3}[-]*[0-9a-zа-я]{2}$/i.freeze
 
   attr_reader :number, :railcars, :route, :speed
 
   @@trains = {}
 
   def initialize(number)
-    register_instance
     @number = number
     @railcars = []
     @speed = 0
+    validate!
+    register_instance
     @@trains[@number.to_s.downcase] = self
   end
 
@@ -36,8 +41,8 @@ class Train
 
   def include_railcar(railcar)
     unless speed.zero?
-      raise 'Необходимо остановить поезд'\
-            ' перед включением в него вагона'
+      raise AppException::TrainSpeedNotZeroError, 'Необходимо остановить поезд'\
+            ' перед включением в него вагона.'
     end
     @railcars << railcar unless @railcars.include?(railcar)
     railcar.train = self
@@ -45,8 +50,8 @@ class Train
 
   def exclude_railcar(railcar)
     unless speed.zero?
-      raise 'Необходимо остановить поезд'\
-            ' перед исключением из него вагона'
+      raise AppException::TrainSpeedNotZeroError, 'Необходимо остановить поезд'\
+            ' перед исключением из него вагона.'
     end
     @railcars.delete(railcar)
     railcar.train = nil
@@ -102,5 +107,9 @@ class Train
 
       current_station.take_train(self)
     end
+  end
+
+  def validate!
+    raise AppException::TrainNumberFormatError unless NUMBER_FORMAT =~ number
   end
 end

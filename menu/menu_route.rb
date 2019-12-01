@@ -1,5 +1,6 @@
 require_relative 'menu_base.rb'
 require_relative '../models/route.rb'
+require_relative '../tools/app_exception.rb'
 # Route menu
 class MenuRoute < MenuBase
   def menu
@@ -133,8 +134,13 @@ class MenuRoute < MenuBase
   end
 
   def route_new_end(call_menu_item)
-    @storage.routes << Route.new(call_menu_item[:data_first_station],
-                                 call_menu_item[:data_last_station])
+    begin
+      @storage.routes << Route.new(call_menu_item[:data_first_station],
+                                   call_menu_item[:data_last_station])
+    rescue AppException::AppError => e
+      puts e.message
+      sleep_long
+    end
     :quit_menu
   end
 end

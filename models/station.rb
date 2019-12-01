@@ -1,7 +1,9 @@
 require_relative '../helpers/instance_counter.rb'
+require_relative '../helpers/validate_helper.rb'
 # Station class
 class Station
   include InstanceCounter
+  include ValidateHelper
 
   attr_reader :name
 
@@ -12,9 +14,10 @@ class Station
   end
 
   def initialize(name)
-    register_instance
     @name = name
     @trains = []
+    validate!
+    register_instance
     @@stations << self
   end
 
@@ -32,5 +35,11 @@ class Station
     else
       @trains.select { |e| e.is_a?(train_class) }
     end
+  end
+
+  protected
+
+  def validate!
+    raise AppException::StationNameEmptyError if !name || name.to_s.strip.empty?
   end
 end

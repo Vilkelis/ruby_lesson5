@@ -1,6 +1,7 @@
 require_relative 'menu_base.rb'
 require_relative '../models/cargo_train.rb'
 require_relative '../models/passanger_train.rb'
+require_relative '../tools/app_exception.rb'
 
 # Train menu
 class MenuTrain < MenuBase
@@ -53,10 +54,15 @@ class MenuTrain < MenuBase
       end
 
       if !train_found
-        @storage.trains << call_menu_item[:data].new(train_number)
-        puts "Поезд \"#{@storage.trains[-1].name}\" создан."
-        sleep_short
-        break
+        begin
+          @storage.trains << call_menu_item[:data].new(train_number)
+          puts "Поезд \"#{@storage.trains[-1].name}\" создан."
+          sleep_short
+          break
+        rescue AppException::AppError => e
+          puts e.message
+          sleep_long
+        end
       else
         puts "Поезд \"#{train_number}\" уже существует."\
              ' Используйте другой номер поезда'
@@ -156,7 +162,7 @@ class MenuTrain < MenuBase
       puts "#{railcar.name} прицеплен к поезду #{train.name}"
       sleep_short
       :quit_menu
-    rescue Exception => e
+    rescue AppException::AppError => e
       puts e.message
       sleep_long
     end

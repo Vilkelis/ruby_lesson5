@@ -1,6 +1,7 @@
 require_relative 'menu_base.rb'
 require_relative '../models/passanger_railcar.rb'
 require_relative '../models/cargo_railcar.rb'
+require_relative '../tools/app_exception.rb'
 # Railcar menu
 class MenuRailcar < MenuBase
   def menu
@@ -46,9 +47,14 @@ class MenuRailcar < MenuBase
   end
 
   def railcar_new_end(call_menu_item)
-    @storage.railcars << call_menu_item[:data].new
-    puts "Вагон #{@storage.railcars[-1].name} создан."
-    sleep_short
+    begin
+      @storage.railcars << call_menu_item[:data].new
+      puts "Вагон #{@storage.railcars[-1].name} создан."
+      sleep_short
+    rescue AppException::AppError => e
+      puts e.message
+      sleep_long
+    end
     :quit_menu
   end
 

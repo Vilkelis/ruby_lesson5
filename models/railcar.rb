@@ -1,7 +1,9 @@
 require_relative '../helpers/manufactor_helper.rb'
+require_relative '../helpers/validate_helper.rb'
 # Railcar base class
 class Railcar
   include ManufactorHelper
+  include ValidateHelper
 
   attr_reader :reg_number, :train
   attr_writer :train
@@ -9,6 +11,7 @@ class Railcar
   @@railcar_count = 0
 
   def initialize
+    validate!
     @@railcar_count += 1
     @reg_number = @@railcar_count
   end

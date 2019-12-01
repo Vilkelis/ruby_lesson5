@@ -46,8 +46,10 @@ class MenuBase
 
       break if item_key == MENU_EXIT_KEY
 
-      menu_item = menu_settings[:list].find do |item|
-        item[:key].to_s.upcase == item_key
+      unless item_key.empty?
+        menu_item = menu_settings[:list].find do |item|
+          item[:key].to_s.upcase == item_key
+        end
       end
 
       if menu_item.nil?

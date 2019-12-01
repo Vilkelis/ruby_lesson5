@@ -16,7 +16,6 @@ module InstanceCounter
 
   # Class methods
   module ClassMethods
-
     def instances
       @instances ||= 0
     end

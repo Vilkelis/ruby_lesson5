@@ -4,7 +4,8 @@ require_relative 'passanger_railcar.rb'
 class PassangerTrain < Train
   def include_railcar(railcar)
     unless railcar.is_a?(PassangerRailcar)
-      raise 'К пассажирскому поезду можно прицеплять только пассажирские вагоны'
+      raise AppException::TrainRailCarTypeError,
+            'К пассажирскому поезду можно прицеплять только пассажирские вагоны'
     end
 
     super railcar

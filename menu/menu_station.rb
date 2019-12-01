@@ -1,5 +1,6 @@
 require_relative 'menu_base.rb'
 require_relative '../models/station.rb'
+require_relative '../tools/app_exception.rb'
 
 # Station menu
 class MenuStation < MenuBase
@@ -40,10 +41,15 @@ class MenuStation < MenuBase
         station.name.downcase == station_name.downcase
       end
       if !station_found
-        @storage.stations << Station.new(station_name)
-        puts "Станция \"#{station_name}\" создана."
-        sleep_short
-        break
+        begin
+          @storage.stations << Station.new(station_name)
+          puts "Станция \"#{station_name}\" создана."
+          sleep_short
+          break
+        rescue AppException::AppError => e
+          puts e.message
+          sleep_long
+        end
       else
         puts "Станция \"#{station_name}\" уже существует."\
              ' Используйте другое имя станции'
