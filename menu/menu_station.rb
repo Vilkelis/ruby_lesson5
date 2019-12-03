@@ -63,8 +63,9 @@ class MenuStation < MenuBase
       station = call_menu_item[:data]
       list = []
       if station.trains.count > 0
-        station.trains.each.with_index(1) do |train, index|
-          list.push(name: "#{index}. #{train.name}")
+        station.each_train do |train, index|
+          list.push(name: "#{index}. #{train.name}"\
+                          " (кол-во вагонов: #{train.railcars.count})")
         end
       else
         list.push(name: 'сейчас на станции нет ни одного поезда')

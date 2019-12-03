@@ -90,6 +90,10 @@ class Train
     'универсальный'
   end
 
+  def each_railcar(&block)
+    @railcars.each.with_index(1, &block)
+  end
+
   protected
 
   attr_reader :current_station_index

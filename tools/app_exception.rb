@@ -52,4 +52,34 @@ module AppException
       super
     end
   end
+
+  # Passanger railcar error: no free seats
+  class RailcarNoFreeSeatsError < AppError
+    def initialize(msg = 'В вагоне нет свободных мест.')
+      super
+    end
+  end
+
+  # Cargo railcar error: no free volume
+  class RailcarNoFreeVolumeError < AppError
+    def initialize(msg = 'В вагоне недостаточно свободного объема.')
+      super
+    end
+  end
+
+  # No seats sets to passanger railcar
+  class RailcarNoSeatsError < AppError
+    def initialize(msg = 'Количество пассажирских мест'\
+                         ' в вагоне должно быть больше нуля.')
+      super
+    end
+  end
+
+  # No volume sets to cargo railcar
+  class RailcarNoVolumeError < AppError
+    def initialize(msg = 'Объем грузового вагона'\
+                         ' должен быть больше нуля.')
+      super
+    end
+  end
 end

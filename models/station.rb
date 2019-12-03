@@ -37,6 +37,10 @@ class Station
     end
   end
 
+  def each_train(&block)
+    @trains.each.with_index(1, &block)
+  end
+
   protected
 
   def validate!

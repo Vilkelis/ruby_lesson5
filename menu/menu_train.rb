@@ -44,7 +44,7 @@ class MenuTrain < MenuBase
       clear_console
       puts "Новый поезд: номер поезда #{MENU_EXIT_MESSAGE}"
       puts MENU_DELIMITER
-      puts 'Укажите номер поезда: '
+      puts 'Укажите номер поезда (формат XXX-XX): '
       train_number = gets.chomp.strip
 
       break if train_number.upcase == MENU_EXIT_KEY
@@ -101,9 +101,9 @@ class MenuTrain < MenuBase
         list.push(name: 'нет ни одного вагона у поезда')
         list.push(name: MENU_DELIMITER)
       else
-        train.railcars.each.with_index(1) do |railcar, index|
+        train.each_railcar do |railcar, index|
           list.push(key: index,
-                    name: railcar.name,
+                    name: "#{railcar.name} (#{railcar.workload_info})",
                     proc: :train_railcar_exclude,
                     data_train: train,
                     data_railcar: railcar)
@@ -134,7 +134,7 @@ class MenuTrain < MenuBase
       railcar.train.nil?
     end
     if available_railcars.empty?
-      push 'Нет ни одного свободного вагона'
+      puts 'Нет ни одного свободного вагона'
       sleep_long
     else
       menu_show do

@@ -27,4 +27,8 @@ class Railcar
   def self.type
     'универсальный'
   end
+
+  def workload_info
+    ''
+  end
 end
