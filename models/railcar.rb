@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../helpers/manufactor_helper.rb'
 require_relative '../helpers/validate_helper.rb'
 # Railcar base class

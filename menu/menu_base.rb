@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../helpers/menu_constant_helper.rb'
 # Base text menu class
 class MenuBase

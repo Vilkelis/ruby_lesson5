@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'railcar.rb'
 require_relative '../tools/app_exception.rb'
 # Cargo railcar
@@ -33,7 +35,9 @@ class CargoRailcar < Railcar
   protected
 
   def validate!
-    raise AppException::RailcarNoVolumeError unless @volume > 0
+    unless station.trains.count.positive?
+      raise AppException::RailcarNoVolumeError
+    end
 
     super
   end

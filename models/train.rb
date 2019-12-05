@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../helpers/manufactor_helper.rb'
 require_relative '../helpers/instance_counter.rb'
 require_relative '../helpers/validate_helper.rb'
@@ -36,7 +38,7 @@ class Train
 
   def decrease_speed
     @speed -= power
-    @speed = 0 if @speed < 0
+    @speed = 0 if @speed.negative?
   end
 
   def include_railcar(railcar)
@@ -79,7 +81,7 @@ class Train
   end
 
   def prev_station
-    route.stations[current_station_index - 1] if current_station_index > 0
+    route.stations[current_station_index - 1] if current_station_index.positive?
   end
 
   def type
@@ -105,7 +107,7 @@ class Train
   def current_station_index=(index)
     if index != @current_station_index &&
        index >= 0 && index < route.stations.count
-      current_station.depart_train(self) unless current_station.nil?
+      current_station&.depart_train(self)
 
       @current_station_index = index
 

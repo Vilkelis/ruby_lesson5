@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'railcar.rb'
 require_relative '../tools/app_exception.rb'
 # Passanger railcar
@@ -33,7 +35,7 @@ class PassangerRailcar < Railcar
   protected
 
   def validate!
-    raise AppException::RailcarNoSeatsError unless @seats_count > 0
+    raise AppException::RailcarNoSeatsError unless @seats_count.positive?
 
     super
   end

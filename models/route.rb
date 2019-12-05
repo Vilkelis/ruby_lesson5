@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../helpers/instance_counter.rb'
 require_relative '../helpers/validate_helper.rb'
 # Train route class

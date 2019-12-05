@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'menu_base.rb'
 require_relative '../models/station.rb'
 require_relative '../tools/app_exception.rb'
@@ -90,7 +92,7 @@ class MenuStation < MenuBase
   end
 
   def station_trains_list_show(station, list)
-    if station.trains.count > 0
+    if station.trains.count.positive?
       station.each_train do |train, index|
         list.push(name: "#{index}. #{train.name}"\
                         " (кол-во вагонов: #{train.railcars.count})")

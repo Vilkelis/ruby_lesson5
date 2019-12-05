@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'menu_main.rb'
 # Railway manager class
 class RailwayManager

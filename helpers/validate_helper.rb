@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../tools/app_exception.rb'
 # Helper for valid? method
 module ValidateHelper

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'train.rb'
 require_relative 'cargo_railcar.rb'
 require_relative '../tools/app_exception.rb'

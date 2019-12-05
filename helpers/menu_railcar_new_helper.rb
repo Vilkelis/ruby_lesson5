@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../helpers/menu_constant_helper.rb'
 # Helper for MenuRailcar class
 module MenuRailcarNewHelper

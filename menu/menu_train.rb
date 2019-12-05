@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'menu_base.rb'
 require_relative '../models/cargo_train.rb'
 require_relative '../models/passanger_train.rb'

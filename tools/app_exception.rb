@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Exceptions for Railway Application
 module AppException
   # Base class for all application errors

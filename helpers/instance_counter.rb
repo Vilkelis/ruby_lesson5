@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Counter methods for classes and instances
 module InstanceCounter
   def self.included(base)

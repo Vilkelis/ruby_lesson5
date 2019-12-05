@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'menu_base.rb'
 require_relative '../models/route.rb'
 require_relative '../tools/app_exception.rb'
