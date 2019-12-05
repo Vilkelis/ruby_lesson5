@@ -23,7 +23,7 @@ class Route
   end
 
   def name
-    @stations.map { |station| station.name }.join(' -> ')
+    @stations.map(&:name).join(' -> ')
   end
 
   protected
