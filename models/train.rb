@@ -2,16 +2,20 @@
 
 require_relative '../helpers/manufactor_helper.rb'
 require_relative '../helpers/instance_counter.rb'
-require_relative '../helpers/validate_helper.rb'
+require_relative '../helpers/validation.rb'
 # Train class
 class Train
   include ManufactorHelper
   include InstanceCounter
-  include ValidateHelper
+  include Validation
 
   NUMBER_FORMAT = /^[0-9a-zа-я]{3}[-]*[0-9a-zа-я]{2}$/i.freeze
 
   attr_reader :number, :railcars, :route, :speed
+
+  validate :number, :presence
+  validate :number, :type, String
+  validate :number, :format, NUMBER_FORMAT
 
   @@trains = {}
 
@@ -107,15 +111,11 @@ class Train
   def current_station_index=(index)
     if index != @current_station_index &&
        index >= 0 && index < route.stations.count
-      current_station&.depart_train(self)
+      current_station.depart_train(self)
 
       @current_station_index = index
 
       current_station.take_train(self)
     end
-  end
-
-  def validate!
-    raise AppException::TrainNumberFormatError unless NUMBER_FORMAT =~ number
   end
 end

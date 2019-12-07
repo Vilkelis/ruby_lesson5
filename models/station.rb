@@ -1,13 +1,16 @@
 # frozen_string_literal: true
 
 require_relative '../helpers/instance_counter.rb'
-require_relative '../helpers/validate_helper.rb'
+require_relative '../helpers/validation.rb'
 # Station class
 class Station
   include InstanceCounter
-  include ValidateHelper
+  include Validation
 
   attr_reader :name
+
+  validate :name, :presence
+  validate :name, :type, String
 
   @@stations = []
 
@@ -41,11 +44,5 @@ class Station
 
   def each_train(&block)
     @trains.each.with_index(1, &block)
-  end
-
-  protected
-
-  def validate!
-    raise AppException::StationNameEmptyError if !name || name.to_s.strip.empty?
   end
 end

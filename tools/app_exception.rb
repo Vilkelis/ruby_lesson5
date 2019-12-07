@@ -84,4 +84,11 @@ module AppException
       super
     end
   end
+
+  # Attribute validation error
+  class AttrValidationError < AppError
+    def initialize(msg = 'Attribute validation error')
+      super
+    end
+  end
 end

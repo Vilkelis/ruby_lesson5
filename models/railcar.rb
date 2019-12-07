@@ -7,8 +7,8 @@ class Railcar
   include ManufactorHelper
   include ValidateHelper
 
-  attr_reader :reg_number, :train
-  attr_writer :train
+  attr_reader :reg_number
+  attr_accessor :train
 
   @@railcar_count = 0
 
